@@ -1,13 +1,14 @@
 {
   "name": "@nithin-sivakumar/mail-sender",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "description": "Send, Resend and Verify OTPs with ease (dependency: Twilio)",
-  "main": "index.js",
+  "main": "build/mailsender",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/@nithin-sivakumar"
   },
   "scripts": {
-    "build": "pkg index.js -o build/mailsender"
+    "build": "pkg index.js -o build/mailsender",
+    "test": "echo \"No test scripts available\""
   },
   "keywords": [
     "OTP"
