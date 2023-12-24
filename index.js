@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 const { transporter } = require("./utils/mailConnect");
-const { USER } = require("./env");
+// const { USER } = require("./env");
 
 // Verify the connection
 transporter.verify(function (error, success) {
@@ -10,6 +10,16 @@ transporter.verify(function (error, success) {
     console.log(`Server is ready to send emails from: ${USER}`);
   }
 });
+
+const config = (gmailId, googleAppPassword) => {
+  var USER = gmailId;
+  var PASS = googleAppPassword;
+
+  module.exports = {
+    USER,
+    PASS,
+  };
+};
 
 // SendMail endPoint
 const sendMail = (subject = "Sent using NodeMailer", content, sendTo) => {
@@ -43,4 +53,5 @@ const sendMail = (subject = "Sent using NodeMailer", content, sendTo) => {
 
 module.exports = {
   sendMail,
+  config,
 };
