@@ -3,7 +3,7 @@ const nodemailer = require("nodemailer");
 const { smtpHost, smtpPort } = require("./env");
 
 // Declare global variables for Gmail user and app password, and transporter instance
-let USER, APP_PASSWORD;
+let USER, APP_PASSWORD, SMTPHOST, SMTPPORT;
 let transporter;
 
 /**
@@ -11,9 +11,16 @@ let transporter;
  * @param {string} gmailId - Gmail user email address.
  * @param {string} googleAppPassword - Gmail app password.
  */
-const config = async (gmailId, googleAppPassword) => {
+const config = async (
+  gmailId,
+  googleAppPassword,
+  smtpHost = "smtp.gmail.com",
+  smtpPort = 465
+) => {
   USER = gmailId;
   APP_PASSWORD = googleAppPassword;
+  SMTPHOST = smtpHost;
+  SMTPPORT = smtpPort;
   console.log(`Configuration successful!`);
   transporter = createTransporter(); // Create transporter instance on config
 };
@@ -33,8 +40,8 @@ const createTransporter = () => {
 
     // Create and configure nodemailer transporter
     return nodemailer.createTransport({
-      host: smtpHost,
-      port: smtpPort,
+      host: SMTPHOST,
+      port: SMTPPORT,
       secure: true, // Use TLS
       auth: {
         user: USER,
@@ -58,9 +65,9 @@ const createTransporter = () => {
  * @param {string} sendTo - Email recipient.
  */
 const sendMail = async (
-  subject = "Sent using NodeMailer",
-  content = "Test Email",
-  sendTo
+  sendTo,
+  subject = "Sent using Mail Sender",
+  content = "Test Email"
 ) => {
   try {
     // If not already configured
