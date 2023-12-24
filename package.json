@@ -1,0 +1,21 @@
+{
+  "name": "otp-verifier",
+  "version": "1.0.0",
+  "description": "Send, Resend and Verify OTPs with ease (dependency: Twilio)",
+  "main": "index.js",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/@nithin-sivakumar"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "OTP"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.2",
+    "nodemailer": "^6.9.7"
+  }
+}
