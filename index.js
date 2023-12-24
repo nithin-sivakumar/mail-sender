@@ -1,5 +1,7 @@
 const { transporter } = require("./utils/mailConnect");
 
+let USER, PASS;
+
 // Verify the connection
 transporter.verify(function (error, success) {
   if (error) {
@@ -10,17 +12,16 @@ transporter.verify(function (error, success) {
 });
 
 const config = (gmailId, googleAppPassword) => {
-  var USER = gmailId;
-  var PASS = googleAppPassword;
-
-  module.exports = {
-    USER,
-    PASS,
-  };
+  USER = gmailId;
+  PASS = googleAppPassword;
 };
 
 // SendMail endPoint
-const sendMail = (subject = "Sent using NodeMailer", content, sendTo) => {
+const sendMail = (
+  subject = "Sent using NodeMailer",
+  content = "Test Email",
+  sendTo
+) => {
   transporter.sendMail(
     {
       from: USER,
@@ -52,4 +53,6 @@ const sendMail = (subject = "Sent using NodeMailer", content, sendTo) => {
 module.exports = {
   sendMail,
   config,
+  USER,
+  PASS,
 };
