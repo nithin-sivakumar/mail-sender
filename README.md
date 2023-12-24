@@ -2,6 +2,15 @@
 
 Send, Resend, and Verify OTPs with ease using `mail-sender`. This lightweight package simplifies email sending through any smtp server, making it perfect for use-cases like OTP verification in your applications.
 
+## Pre-Requisites ❗
+
+Create a file called `.npmrc` in your root directory and paste the code below inside it. Save the file, and then proceed for installation
+
+```
+@nithin-sivakumar:registry=https://npm.pkg.github.com/
+//npm.pkg.github.com/:_authToken=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
+```
+
 ## Installation
 
 ```bash
