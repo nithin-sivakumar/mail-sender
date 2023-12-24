@@ -1,4 +1,4 @@
-const { transporter } = require("./utils/mailConnect");
+// const { transporter } = require("./utils/mailConnect");
 const nodemailer = require("nodemailer");
 const { smtpHost, smtpPort } = require("../env");
 
