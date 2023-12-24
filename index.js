@@ -1,6 +1,6 @@
 // const { transporter } = require("./utils/mailConnect");
 const nodemailer = require("nodemailer");
-const { smtpHost, smtpPort } = require("../env");
+const { smtpHost, smtpPort } = require("./env");
 
 let USER, PASS;
 
