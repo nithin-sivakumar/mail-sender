@@ -6,7 +6,6 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/@nithin-sivakumar"
   },
-  "private": "true",
   "scripts": {
     "build": "pkg index.js -o mailsender"
   },
