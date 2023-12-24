@@ -1,52 +1,90 @@
-// const { transporter } = require("./utils/mailConnect");
+// Import nodemailer library and SMTP server details from env.js
 const nodemailer = require("nodemailer");
 const { smtpHost, smtpPort } = require("./env");
 
-let USER, PASS;
+// Declare global variables for Gmail user and app password, and transporter instance
+let USER, APP_PASSWORD;
+let transporter;
 
-const config = (gmailId, googleAppPassword) => {
+/**
+ * Configures Gmail user and app password for sending emails.
+ * @param {string} gmailId - Gmail user email address.
+ * @param {string} googleAppPassword - Gmail app password.
+ */
+const config = async (gmailId, googleAppPassword) => {
   USER = gmailId;
-  PASS = googleAppPassword;
+  APP_PASSWORD = googleAppPassword;
+  console.log(`Configuration successful!`);
+  transporter = createTransporter(); // Create transporter instance on config
 };
 
-const transporter = nodemailer.createTransport({
-  host: smtpHost,
-  port: smtpPort,
-  secure: true, // use TLS
-  auth: {
-    user: USER,
-    pass: PASS,
-  },
-  tls: {
-    // do not fail on invalid certs
-    rejectUnauthorized: false,
-  },
-});
+/**
+ * Creates and configures a nodemailer transporter.
+ * @returns {Object|null} - Nodemailer transporter instance or null if configuration is invalid.
+ */
+const createTransporter = () => {
+  try {
+    // Validate user and app password
+    if (!USER || !APP_PASSWORD) {
+      throw new Error(
+        "USER and APP_PASSWORD must be configured using config()"
+      );
+    }
 
-console.log(
-  `Attempting to connect to SMTP server: ${smtpHost} at PORT: ${smtpPort}`
-);
-
-// Verify the connection
-transporter.verify(function (error, success) {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log(`Server is ready to send emails from: ${USER}`);
+    // Create and configure nodemailer transporter
+    return nodemailer.createTransport({
+      host: smtpHost,
+      port: smtpPort,
+      secure: true, // Use TLS
+      auth: {
+        user: USER,
+        pass: APP_PASSWORD,
+      },
+      tls: {
+        // Do not fail on invalid certs
+        rejectUnauthorized: false,
+      },
+    });
+  } catch (error) {
+    console.error(error.message);
+    return null;
   }
-});
+};
 
-// SendMail endPoint
-const sendMail = (
+/**
+ * Sends an email using the configured transporter.
+ * @param {string} [subject="Sent using NodeMailer"] - Email subject.
+ * @param {string} [content="Test Email"] - Email content in HTML format.
+ * @param {string} sendTo - Email recipient.
+ */
+const sendMail = async (
   subject = "Sent using NodeMailer",
   content = "Test Email",
   sendTo
 ) => {
-  if (!USER || !PASS) {
-    console.log(
-      `Kindly use .config() before trying to send emails using sendMail()`
-    );
-  } else {
+  try {
+    // If not already configured
+    if (!USER || !APP_PASSWORD) {
+      throw new Error(
+        "USER and APP_PASSWORD must be configured using config()"
+      );
+    }
+
+    // Verify the connection
+    if (transporter) {
+      transporter.verify(function (error, success) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log(
+            `Attempting to connect to server: ${smtpHost} at PORT: ${smtpPort}`
+          );
+          console.log(`Server is ready to send emails from: ${USER}`);
+        }
+      });
+    }
+
+    // Send mail
     transporter.sendMail(
       {
         from: USER,
@@ -55,15 +93,23 @@ const sendMail = (
         html: content,
       },
       (err, info) => {
-        console.log(info.envelope);
-        console.log(info.messageId);
+        console.log(info?.envelope);
+        console.log(info?.messageId);
       }
     );
+  } catch (error) {
+    console.error(error.message);
   }
 };
 
-// Sample usage:
-// OTP Generator
+// Export sendMail and config functions
+module.exports = {
+  sendMail,
+  config,
+};
+
+// // Sample usage:
+// // OTP Generator
 // const code = Math.floor(
 //   Math.pow(10, 6 - 1) + Math.random() * 9 * Math.pow(10, 6 - 1)
 // );
@@ -73,10 +119,10 @@ const sendMail = (
 //   content: `<p>Dear User, Your OTP to login to Hypertension app is: <b>${code}</b></p>`,
 //   to: "psameerably03@gmail.com",
 // };
-// // Function call
-// sendMail(options.subject, options.content, options.to);
 
-module.exports = {
-  sendMail,
-  config,
-};
+// async function test() {
+//   await config("nithinsgayathri@gmail.com", "cacppflpyfbefrhf"); // Set USER and APP_PASSWORD
+//   sendMail(options.subject, options.content, options.to);
+// }
+// // Function call
+// test();
