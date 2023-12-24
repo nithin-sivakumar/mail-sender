@@ -1,6 +1,6 @@
 // Import nodemailer library and SMTP server details from env.js
 const nodemailer = require("nodemailer");
-const { smtpHost, smtpPort } = require("./env");
+const { smtpHost, smtpPort } = require("./src/env");
 
 // Declare global variables for Gmail user and app password, and transporter instance
 let USER, APP_PASSWORD;
