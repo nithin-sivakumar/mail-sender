@@ -1,6 +1,4 @@
-const nodemailer = require("nodemailer");
 const { transporter } = require("./utils/mailConnect");
-// const { USER } = require("./env");
 
 // Verify the connection
 transporter.verify(function (error, success) {

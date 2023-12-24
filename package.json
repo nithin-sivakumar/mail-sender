@@ -1,6 +1,6 @@
 {
   "name": "@nithin-sivakumar/mail-sender",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Send, Resend and Verify OTPs with ease (dependency: Twilio)",
   "main": "index.js",
   "publishConfig": {
@@ -15,7 +15,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^1.6.2",
     "nodemailer": "^6.9.7"
   }
 }
