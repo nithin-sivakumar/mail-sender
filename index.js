@@ -94,10 +94,10 @@ const sendMail = async (
       },
       (err, info) => {
         if (!err) {
-          console.log(`Mail sent successfully!`);
+          console.log(`Mail sent successfully to ${sendTo} from ${USER}!`);
         }
-        console.log(info?.envelope);
-        console.log(info?.messageId);
+        // console.log(info?.envelope);
+        // console.log(info?.messageId);
       }
     );
   } catch (error) {
