@@ -8,8 +8,9 @@ Create a file called `.npmrc` in your root directory and paste the code below in
 
 ```
 @nithin-sivakumar:registry=https://npm.pkg.github.com/
-//npm.pkg.github.com/:_authToken=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
+//npm.pkg.github.com/:_authToken=AUTH_TOKEN
 ```
+NOTE: Request admin for AUTH_TOKEN
 
 ## Installation
 
