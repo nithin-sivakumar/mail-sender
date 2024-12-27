@@ -117,22 +117,3 @@ module.exports = {
   sendMail,
   config,
 };
-
-// // Sample usage:
-// // OTP Generator
-// const code = Math.floor(
-//   Math.pow(10, 6 - 1) + Math.random() * 9 * Math.pow(10, 6 - 1)
-// );
-// // Options
-// const options = {
-//   subject: "Hypertension Login OTP",
-//   content: `<p>Dear User, Your OTP to login to Hypertension app is: <b>${code}</b></p>`,
-//   to: "psameerably03@gmail.com",
-// };
-
-// async function test() {
-//   await config("nithinsgayathri@gmail.com", "cacppflpyfbefrhf"); // Set USER and APP_PASSWORD
-//   sendMail(options.subject, options.content, options.to);
-// }
-// // Function call
-// test();
